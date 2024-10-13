@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Utilisateurs avec Google Sheets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ajouter un Utilisateur</h1>
+<input type="text" id="email" placeholder="Email" required>
+<input type="password" id="password" placeholder="Mot de passe" required>
+<button onclick="addUser()">Ajouter</button>
+
+<script>
+    async function addUser() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // ID de la feuille Google Sheets
+        const sheetId = '1VBuL_CltylY2OB6YcOY8nr_YFZzb2M3rEEZVctRzO-E'; // Remplace par l'ID de ta feuille
+        const scriptId = 'AKfycbwVl1cxppJqTttTY6DMc5IWXmVS9zFeoyeJ07xZa1541BQVPqTEhpo3AqVB4kLNiM1q'; // Remplace par l'ID de ton script
+
+        // URL pour ajouter une nouvelle ligne dans Google Sheets
+        const url = `https://script.google.com/macros/s/${scriptId}/exec?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+
+        // Envoyer une requête GET pour ajouter l'utilisateur
+        const response = await fetch(url);
+        if (response.ok) {
+            alert('Utilisateur ajouté avec succès !');
+            document.getElementById('email').value = ''; // Réinitialiser le champ
+            document.getElementById('password').value = ''; // Réinitialiser le champ
+        } else {
+            alert('Erreur lors de l\'ajout de l\'utilisateur.');
+        }
+    }
+</script>
+
+</body>
+</html>
